@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pie Chart</title>
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.js"
+      integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"
+    ></script>
+    <script type="text/javascript">
+      $(function() {
+        $.ajax({
+          url: "http://localhost/tarp/chart_data.php",
+          type: "GET",
+          success: function(data) {
+            chartData = data;
+            var chartProperties = {
+              caption: "Items Sales",
+              subCaption: "On a particular day",
+              showPercentInTooltip: "0",
+              decimals: "1",
+              useDataPlotColorForLabels: "1",
+              theme: "fusion"
+            };
+            pieChart = new FusionCharts({
+              type: "pie2d",
+              renderAt: "chart-container",
+              width: "700",
+              height: "450",
+              dataFormat: "json",
+              dataSource: {
+                chart: chartProperties,
+                data: chartData
+              }
+            });
+            pieChart.render();
+          }
+        });
+      });
+    </script>
+  </head>
+  <body style="overflow:hidden">
+    <div id="chart-container">FusionCharts XT will load here!</div>
+  </body>
+</html>
